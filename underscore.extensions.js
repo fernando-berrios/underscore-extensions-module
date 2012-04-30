@@ -2,19 +2,34 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     var module = {};
 
     if (_ === void 0) {
+        // https://github.com/documentcloud/underscore/blob/eeea70c457db3aebaef5b9251661f779844758fe/underscore.js
         throw "Missing Dependency: Underscore.js v1.3.1";
     }
 
     if (_string === void 0) {
+        // https://github.com/epeli/underscore.string/blob/aebcbe8a5c61ec4ea0be68f3ce4e5614a82a5434/lib/underscore.string.js
         throw "Missing Dependency: Underscore.string.js v2.0.0 SHA aebcbe8a5c61ec4ea0be68f3ce4e5614a82a5434";
     }
 
     /*
      Function: isNullOrUndefined
 
+     Check if the value passed is null or undefined.
+
+     Usage:
+
+     (start code)
+
+     var result = _.isNullOrUndefined(null) // result == true
+     var result = _.isNullOrUndefined(undefined) // result == true
+     var result = _.isNullOrUndefined(void 0) // result == true
+     var result = _.isNullOrUndefined("") // result == false
+
+     (end)
+
      Parameters:
 
-     object - value to check.
+     object - Value to check.
 
      Returns:
 
@@ -28,13 +43,25 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     /*
      Function: isWhitespace
 
+     Checks if a string contains only whitespace character(s).
+
+     Usage:
+
+     (start code)
+
+     var result = _.isWhitespace("") // result == false
+     var result = _.isWhitespace("Hello World!") // result == false
+     var result = _.isWhitespace("  ") // result == true
+
+     (end)
+
      Parameters:
 
-     object - value to check. Should be a string.
+     object - Value to check. Should be a string.
 
      Returns:
 
-     Boolean, true if object is an whitespace string ('  ').
+     Boolean, true if object is an whitespace string ("  ").
 
      */
     function isWhitespace(object) {
@@ -50,13 +77,26 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     /*
      Function: isEmptyOrWhitespace
 
+     Checks if an object or array is empty, or, if a string is empty or only contains whitespace characters. Depends on <isWhitespace>
+
+     Usage:
+
+     (start code)
+
+     var result = _.isEmptyOrWhitespace({}) // result == true
+     var result = _.isEmptyOrWhitespace([]) // result == true
+     var result = _.isEmptyOrWhitespace("") // result == true
+     var result = _.isEmptyOrWhitespace(" ") // result == true
+
+     (end)
+
      Parameters:
 
-     object - value to check.
+     object - Value to check.
 
      Returns:
 
-     Boolean, true if object is either an empty/zero length string/object ('' or {}) or whitespace string ('  ')
+     Boolean, true if object is either an empty/zero length string/object ("" or {}) or whitespace string ("  ")
      or a null or undefined object.
 
      */
@@ -75,14 +115,26 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     /*
      Function: hasEmptyOrWhitespaceValues
 
+     Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.
+     Depends on <isEmptyOrWhitespace>
+
+     Usage:
+
+     (start code)
+
+     var result = _.hasEmptyOrWhitespaceValues([1, "", 3]) // result == true
+     var result = _.hasEmptyOrWhitespaceValues({ one:1, two:2, three:"   " }) // result == true
+
+     (end)
+
      Parameters:
 
-     object - value to check.
+     object - Value to check. Should be an Object or an Array, otherwise it falls back to isEmptyOrWhitespace function.
 
      Returns:
 
-     Boolean, true if any property of the object or array is either an empty/zero length string/object ('' or {})
-     or whitespace string ('  ') or a null or undefined object.
+     Boolean, true if any property of the object or array is either an empty/zero length string/object ("" or {}),
+     a whitespace string ("  "), a null or an undefined object.
 
      */
     function hasEmptyOrWhitespaceValues(object) {
@@ -108,20 +160,34 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     /*
      Function: ensureString
 
+     Ensures that, regardless of the input, the output will always be a string. Depends on <isNullOrUndefined>,
+     <isWhitespace> and <isEmptyOrWhitespace>.
+
+     Usage:
+
+     (start code)
+
+     var result = _.ensureString(null) // result == ""
+     var result = _.ensureString(undefined) // result == ""
+     var result = _.ensureString(123) // result == "123"
+     var result = _.ensureString("Hello World") // result == "Hello World"
+
+     (end)
+
      Parameters:
 
-     object - value to check.
-     replaceString - optional. String to replace if object is not a string.
+     object - Value to check.
+     replaceString - Optional. String to replace if object is not a string.
 
      Returns:
 
      String, if object is a valid string then the function returns it, otherwise it returns
-     the replaceString or defaults to returning a empty/zero length string ('').
+     the replaceString or defaults to returning a empty/zero length string ("").
 
      */
     function ensureString(object, replaceString) {
         var output = (!_.isNullOrUndefined(replaceString) && _.isString(replaceString)) ? replaceString : "";
-        if (!_.isNullOrUndefined(object) && !_.isEmptyOrWhitespace(object)) {
+        if (isNullOrUndefined(object) && isEmptyOrWhitespace(object)) {
             if (_.isString(object)) {
                 if (isWhitespace(object)) {
                     output = object;
@@ -140,9 +206,18 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
      Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit.
      See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9
 
+     (start code)
+
+     var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&b=2&c=3"
+     var result = _.objectToQuery(undefined) // result == ""
+     var result = _.ensureString(123) // result == "123"
+     var result = _.ensureString("Hello World") // result == "Hello World"
+
+     (end)
+
      Parameters:
 
-     map - name/value mapping object.
+     map - Name/value mapping object.
 
      Returns:
 
@@ -164,6 +239,7 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
                 }
             }
         }
+
         return pairs.join("&"); // String
     }
 
@@ -177,7 +253,7 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
 
      Parameters:
 
-     str - string with URL.
+     str - String with URL.
 
      Returns:
 
@@ -209,15 +285,18 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
                 }
             }
         }
+
         return ret; // Object
     }
 
     /*
      Function: getPrototypeOf
 
+     Function to safely get the prototype object of any object.
+
      Parameters:
 
-     object - object to get the prototype object from.
+     object - Object to get the prototype object from.
 
      Returns:
 

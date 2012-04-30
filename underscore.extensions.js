@@ -1,5 +1,6 @@
 define(['underscore.module', 'underscore.string'], function (_, _string) {
     var module = {};
+    var backstop = {};
 
     if (_ === void 0) {
         // https://github.com/documentcloud/underscore/blob/eeea70c457db3aebaef5b9251661f779844758fe/underscore.js
@@ -187,7 +188,7 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
      */
     function ensureString(object, replaceString) {
         var output = (!_.isNullOrUndefined(replaceString) && _.isString(replaceString)) ? replaceString : "";
-        if (isNullOrUndefined(object) && isEmptyOrWhitespace(object)) {
+        if (!isNullOrUndefined(object) && !isEmptyOrWhitespace(object)) {
             if (_.isString(object)) {
                 if (isWhitespace(object)) {
                     output = object;
@@ -206,12 +207,12 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
      Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit.
      See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9
 
+     Usage:
+
      (start code)
 
      var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&b=2&c=3"
      var result = _.objectToQuery(undefined) // result == ""
-     var result = _.ensureString(123) // result == "123"
-     var result = _.ensureString("Hello World") // result == "Hello World"
 
      (end)
 
@@ -243,13 +244,21 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return pairs.join("&"); // String
     }
 
-    var backstop = {};
-
     /*
      Function: queryToObject
 
      Convert the query string of a URL to an object. "Borrowed" this function from Dojo Toolkit.
      See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46
+
+     Usage:
+
+     (start code)
+
+     var result = _.queryToObject("a=1&b=2&c=3") // result ==  { a:1, b:2, c:3 }
+     var result = _.queryToObject("a=1&b=2&c=3&a=4") // result ==  { a: ['1', '4'], b:'2', c:'3' }
+     var result = _.queryToObject(undefined) // result == {}
+
+     (end)
 
      Parameters:
 
@@ -262,26 +271,30 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
 
      */
     function queryToObject(str) {
-        var dec = decodeURIComponent, qp = str.split("&"), ret = {}, name, val;
-        for (var i = 0, l = qp.length, item; i < l; ++i) {
-            item = qp[i];
-            if (item.length) {
-                var s = item.indexOf("=");
-                if (s < 0) {
-                    name = dec(item);
-                    val = "";
-                } else {
-                    name = dec(item.slice(0, s));
-                    val = dec(item.slice(s + 1));
-                }
-                if (_.isString(ret[name])) {
-                    ret[name] = [ret[name]];
-                }
+        var ret = {};
 
-                if (_.isArray(ret[name])) {
-                    ret[name].push(val);
-                } else {
-                    ret[name] = val;
+        if (!isNullOrUndefined(str)) {
+            var dec = decodeURIComponent, qp = str.split("&"), name, val;
+            for (var i = 0, l = qp.length, item; i < l; ++i) {
+                item = qp[i];
+                if (item.length) {
+                    var s = item.indexOf("=");
+                    if (s < 0) {
+                        name = dec(item);
+                        val = "";
+                    } else {
+                        name = dec(item.slice(0, s));
+                        val = dec(item.slice(s + 1));
+                    }
+                    if (_.isString(ret[name])) {
+                        ret[name] = [ret[name]];
+                    }
+
+                    if (_.isArray(ret[name])) {
+                        ret[name].push(val);
+                    } else {
+                        ret[name] = val;
+                    }
                 }
             }
         }

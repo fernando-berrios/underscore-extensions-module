@@ -3,8 +3,8 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     var backstop = {};
 
     if (_ === void 0) {
-        // https://github.com/documentcloud/underscore/blob/eeea70c457db3aebaef5b9251661f779844758fe/underscore.js
-        throw "Missing Dependency: Underscore.js v1.3.1";
+        // https://github.com/documentcloud/underscore/blob/599d31101b7a7b896ff73e338d26ae698833f878/underscore.js
+        throw "Missing Dependency: Underscore.js v1.3.3";
     }
 
     if (_string === void 0) {
@@ -114,6 +114,36 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     }
 
     /*
+     Function: isShallow
+
+     Checks if an object or array is
+
+     Usage:
+
+     (start code)
+
+     var result = _.isShallow({}) // result == true
+
+     (end)
+
+     Parameters:
+
+     object - Value to check.
+
+     Returns:
+
+     Boolean, true if object
+
+     */
+    function isShallow(object) {
+        var output = false;
+
+
+
+        return output;
+    }
+
+    /*
      Function: hasEmptyOrWhitespaceValues
 
      Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.
@@ -187,7 +217,7 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
 
      */
     function ensureString(object, replaceString) {
-        var output = (!_.isNullOrUndefined(replaceString) && _.isString(replaceString)) ? replaceString : "";
+        var output = (!isNullOrUndefined(replaceString) && _.isString(replaceString)) ? replaceString : "";
         if (!isNullOrUndefined(object) && !isEmptyOrWhitespace(object)) {
             if (_.isString(object)) {
                 if (isWhitespace(object)) {

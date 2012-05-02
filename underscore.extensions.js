@@ -8,8 +8,8 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     }
 
     if (_string === void 0) {
-        // https://github.com/epeli/underscore.string/blob/aebcbe8a5c61ec4ea0be68f3ce4e5614a82a5434/lib/underscore.string.js
-        throw "Missing Dependency: Underscore.string.js v2.0.0 SHA aebcbe8a5c61ec4ea0be68f3ce4e5614a82a5434";
+        // https://github.com/epeli/underscore.string/blob/36c97e3accee57f3947ecb98732b12027705d3f0/lib/underscore.string.js
+        throw "Missing Dependency: Underscore.string.js v2.2.0rc";
     }
 
     /*
@@ -109,36 +109,6 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
                 output = isWhitespace(object);
             }
         }
-
-        return output;
-    }
-
-    /*
-     Function: isShallow
-
-     Checks if an object or array is
-
-     Usage:
-
-     (start code)
-
-     var result = _.isShallow({}) // result == true
-
-     (end)
-
-     Parameters:
-
-     object - Value to check.
-
-     Returns:
-
-     Boolean, true if object
-
-     */
-    function isShallow(object) {
-        var output = false;
-
-
 
         return output;
     }

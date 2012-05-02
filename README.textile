@@ -14,7 +14,7 @@ h3. Dependencies
 
 h2. Documentation
 
-Available "here":http://prototypef.github.com/underscore-extensions-module/docs/ or, alternatively you can generate the documentation HTML pages by running:
+Examples and documentation available "here":http://prototypef.github.com/underscore-extensions-module/docs/ or, alternatively you can generate the documentation HTML pages by running:
 
 NaturalDocs -i . -o HTML docs -p docs\.nd -xi docs -xi vendor -xi test -r
 

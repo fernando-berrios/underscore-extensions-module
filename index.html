@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Underscore Extensions Module by prototypef</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Underscore Extensions Module</h1>
+        <p>A common set of useful helper functions to be mixed in to Underscore.js. Bundled into a RequireJS module, and unit tested using the Jasmine BDD framework.</p>
+        <p class="view"><a href="https://github.com/prototypef/underscore-extensions-module">View the Project on GitHub <small>prototypef/underscore-extensions-module</small></a></p>
+        <ul>
+          <li><a href="https://github.com/prototypef/underscore-extensions-module/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/prototypef/underscore-extensions-module/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/prototypef/underscore-extensions-module">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Underscore Extensions Module</h1>
+
+<h2>Overview</h2>
+
+<p>The goal of this project is to develop a comprehensive, well documented and unit tested set of JavaScript helper functions that can be safely mixed in to <a href="http://underscorejs.org/">Underscore.js</a> and packaged into an AMD module. Unit testing is powered by the <a href="http://pivotal.github.com/jasmine/">Jasmine BDD</a> framework and uses the <a href="http://requirejs.org/">RequireJS</a> AMD module format.</p>
+
+<p>At the very least I hope this project serves as a solid template that can be forked, ripped apart and reconfigured to use in any way necessary.</p>
+
+<h3>Dependencies</h3>
+
+<ul>
+<li>RequireJS 1.0.8</li>
+<li>Underscore.js 1.3.3</li>
+<li>
+<a href="http://epeli.github.com/underscore.string/">Underscore.string</a> 2.2.0rc (<em>not a strict dependency, right now just included for convenience</em>)</li>
+</ul><h2>Usage &amp; Examples</h2>
+
+<p>Check out the <em>*.spec.js</em> files under the <em>/test/specs/</em> folder to see different use cases and examples. For more in-depth explanation of the module's methods <a href="http://en.wikipedia.org/wiki/RTFM">RTFM</a> (see Documentation section below :P).</p>
+
+<h2>Documentation</h2>
+
+<h3>isNullOrUndefined</h3>
+
+<p>Check if the value passed is null or undefined.</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.isNullOrUndefined(null) // result == true
+var result = _.isNullOrUndefined(undefined) // result == true
+var result = _.isNullOrUndefined(void 0) // result == true
+var result = _.isNullOrUndefined("") // result == false
+</code></pre>
+
+<h3>isWhitespace</h3>
+
+<p>Checks if a string contains only whitespace character(s).</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.isWhitespace("") // result == false
+var result = _.isWhitespace("Hello World!") // result == false
+var result = _.isWhitespace("  ") // result == true
+</code></pre>
+
+<h3>isEmptyOrWhitespace</h3>
+
+<p>Checks if an object or array is empty, or, if a string is empty or only contains whitespace characters.<br>Depends on isWhitespace.</p>
+
+<p>Example</p>
+
+<pre><code>var result = _.isEmptyOrWhitespace({}) // result == true
+var result = _.isEmptyOrWhitespace([]) // result == true
+var result = _.isEmptyOrWhitespace("") // result == true
+var result = _.isEmptyOrWhitespace(" ") // result == true
+</code></pre>
+
+<h3>hasEmptyOrWhitespaceValues</h3>
+
+<p>Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.<br>Depends on isEmptyOrWhitespace</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.hasEmptyOrWhitespaceValues([1, "", 3]) // result == true
+var result = _.hasEmptyOrWhitespaceValues({ one:1, two:2, three:"   " }) // result == true
+</code></pre>
+
+<h3>toString</h3>
+
+<p>Converts and/or ensures that regardless of the input, the output will always be a string.<br>Depends on isNullOrUndefined, isWhitespace and isEmptyOrWhitespace.</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.toString(null) // result == ""
+var result = _.toString(undefined) // result == ""
+var result = _.toString(undefined, "fallback!") // result == "fallback!"
+var result = _.toString(123) // result == "123"
+var result = _.toString("Hello World") // result == "Hello World"
+</code></pre>
+
+<h3>objectToQuery</h3>
+
+<p>Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit. See <a href="https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9">https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9</a></p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&amp;b=2&amp;c=3"
+var result = _.objectToQuery(undefined) // result == ""
+</code></pre>
+
+<h3>queryToObject</h3>
+
+<p>Convert the query string of a URL to an object. "Borrowed" this function from Dojo Toolkit. See <a href="https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46">https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46</a></p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.queryToObject("a=1&amp;b=2&amp;c=3") // result ==  { a:1, b:2, c:3 }
+var result = _.queryToObject("a=1&amp;b=2&amp;c=3&amp;a=4") // result ==  { a: ['1', '4'], b:'2', c:'3' }
+var result = _.queryToObject(undefined) // result == {}
+</code></pre>
+
+<h3>getPrototypeOf</h3>
+
+<p>Function to safely get the prototype object of any object.</p>
+
+<h2>Change Log</h2>
+
+<p>Nothing to see here yet. Move along.</p>
+
+<h2>License</h2>
+
+<p>Copyright (c) 2012 Fernando Berrios</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/prototypef">prototypef</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31308411-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>

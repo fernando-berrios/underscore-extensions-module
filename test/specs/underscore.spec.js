@@ -265,9 +265,9 @@ define(['underscore.module', 'underscore.extensions'], function (_, _ext) {
             });
         });
 
-        /* ensureString */
-        describe("ensureString", function () {
-            var specFunction = _.ensureString;
+        /* toString */
+        describe("toString", function () {
+            var specFunction = _.toString;
 
             it("expect a null variable to be an empty string", function () {
                 var test = null;

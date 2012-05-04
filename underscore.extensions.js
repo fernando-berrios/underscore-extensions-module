@@ -247,7 +247,7 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
     module.isWhitespace = isWhitespace;
     module.isEmptyOrWhitespace = isEmptyOrWhitespace;
     module.hasEmptyOrWhitespaceValues = hasEmptyOrWhitespaceValues;
-    module.ensureString = toString;
+    module.toString = toString;
     module.objectToQuery = objectToQuery;
     module.queryToObject = queryToObject;
     module.getPrototypeOf = getPrototypeOf;

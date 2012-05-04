@@ -12,58 +12,34 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         throw "Missing Dependency: Underscore.string.js v2.2.0rc";
     }
 
-    /*
-     Function: isNullOrUndefined
-
-     Check if the value passed is null or undefined.
-
-     Usage:
-
-     (start code)
-
-     var result = _.isNullOrUndefined(null) // result == true
-     var result = _.isNullOrUndefined(undefined) // result == true
-     var result = _.isNullOrUndefined(void 0) // result == true
-     var result = _.isNullOrUndefined("") // result == false
-
-     (end)
-
-     Parameters:
-
-     object - Value to check.
-
-     Returns:
-
-     Boolean, true if object is null or undefined.
-
+    /**
+     * Check if the value passed is null or undefined.
+     *
+     * Examples
+     *
+     *     var result = _.isNullOrUndefined(null) // result == true
+     *     var result = _.isNullOrUndefined(undefined) // result == true
+     *     var result = _.isNullOrUndefined(void 0) // result == true
+     *     var result = _.isNullOrUndefined("") // result == false
+     *
+     * @param {Object} object Value to check.
+     * @returns {Boolean} True if object is null or undefined.
      */
     function isNullOrUndefined(object) {
         return (_.isNull(object) || _.isUndefined(object));
     }
 
-    /*
-     Function: isWhitespace
-
-     Checks if a string contains only whitespace character(s).
-
-     Usage:
-
-     (start code)
-
-     var result = _.isWhitespace("") // result == false
-     var result = _.isWhitespace("Hello World!") // result == false
-     var result = _.isWhitespace("  ") // result == true
-
-     (end)
-
-     Parameters:
-
-     object - Value to check. Should be a string.
-
-     Returns:
-
-     Boolean, true if object is an whitespace string ("  ").
-
+    /**
+     * Checks if a string contains only whitespace character(s).
+     *
+     * Examples
+     *
+     *     var result = _.isWhitespace("") // result == false
+     *     var result = _.isWhitespace("Hello World!") // result == false
+     *     var result = _.isWhitespace("  ") // result == true
+     *
+     * @param {String} object Value to check. Should be a string.
+     * @returns {Boolean} True if object is an whitespace string ("  ").
      */
     function isWhitespace(object) {
         var output = false;
@@ -75,31 +51,19 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return output;
     }
 
-    /*
-     Function: isEmptyOrWhitespace
-
-     Checks if an object or array is empty, or, if a string is empty or only contains whitespace characters. Depends on <isWhitespace>
-
-     Usage:
-
-     (start code)
-
-     var result = _.isEmptyOrWhitespace({}) // result == true
-     var result = _.isEmptyOrWhitespace([]) // result == true
-     var result = _.isEmptyOrWhitespace("") // result == true
-     var result = _.isEmptyOrWhitespace(" ") // result == true
-
-     (end)
-
-     Parameters:
-
-     object - Value to check.
-
-     Returns:
-
-     Boolean, true if object is either an empty/zero length string/object ("" or {}) or whitespace string ("  ")
-     or a null or undefined object.
-
+    /**
+     * Checks if an object or array is empty, or, if a string is empty or only contains whitespace characters.
+     * Depends on isWhitespace.
+     *
+     * Example
+     *
+     *     var result = _.isEmptyOrWhitespace({}) // result == true
+     *     var result = _.isEmptyOrWhitespace([]) // result == true
+     *     var result = _.isEmptyOrWhitespace("") // result == true
+     *     var result = _.isEmptyOrWhitespace(" ") // result == true
+     *
+     * @param {Object} object Value to check.
+     * @returns {Boolean} True if object is either an empty/zero length string/object ("" or {}) or whitespace string ("  ") or a null or undefined object.
      */
     function isEmptyOrWhitespace(object) {
         var output = _.isEmpty(object) && !_.isNumber(object);
@@ -113,30 +77,17 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return output;
     }
 
-    /*
-     Function: hasEmptyOrWhitespaceValues
-
-     Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.
-     Depends on <isEmptyOrWhitespace>
-
-     Usage:
-
-     (start code)
-
-     var result = _.hasEmptyOrWhitespaceValues([1, "", 3]) // result == true
-     var result = _.hasEmptyOrWhitespaceValues({ one:1, two:2, three:"   " }) // result == true
-
-     (end)
-
-     Parameters:
-
-     object - Value to check. Should be an Object or an Array, otherwise it falls back to isEmptyOrWhitespace function.
-
-     Returns:
-
-     Boolean, true if any property of the object or array is either an empty/zero length string/object ("" or {}),
-     a whitespace string ("  "), a null or an undefined object.
-
+    /**
+     * Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.
+     * Depends on isEmptyOrWhitespace
+     *
+     * Examples
+     *
+     *     var result = _.hasEmptyOrWhitespaceValues([1, "", 3]) // result == true
+     *     var result = _.hasEmptyOrWhitespaceValues({ one:1, two:2, three:"   " }) // result == true
+     *
+     * @param {Object|Array} object Value to check. Should be an Object or an Array, otherwise it falls back to isEmptyOrWhitespace function.
+     * @returns {Boolean} True if any property of the object or array is either an empty/zero length string/object ("" or {}), a whitespace string ("  "), a null or an undefined object.
      */
     function hasEmptyOrWhitespaceValues(object) {
         var output = false;
@@ -158,36 +109,25 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return output;
     }
 
-    /*
-     Function: ensureString
-
-     Ensures that, regardless of the input, the output will always be a string. Depends on <isNullOrUndefined>,
-     <isWhitespace> and <isEmptyOrWhitespace>.
-
-     Usage:
-
-     (start code)
-
-     var result = _.ensureString(null) // result == ""
-     var result = _.ensureString(undefined) // result == ""
-     var result = _.ensureString(123) // result == "123"
-     var result = _.ensureString("Hello World") // result == "Hello World"
-
-     (end)
-
-     Parameters:
-
-     object - Value to check.
-     replaceString - Optional. String to replace if object is not a string.
-
-     Returns:
-
-     String, if object is a valid string then the function returns it, otherwise it returns
-     the replaceString or defaults to returning a empty/zero length string ("").
-
+    /**
+     * Converts and/or ensures that regardless of the input, the output will always be a string.
+     * Depends on isNullOrUndefined, isWhitespace and isEmptyOrWhitespace.
+     *
+     * Examples
+     *
+     *     var result = _.toString(null) // result == ""
+     *     var result = _.toString(undefined) // result == ""
+     *     var result = _.toString(undefined, "fallback!") // result == "fallback!"
+     *     var result = _.toString(123) // result == "123"
+     *     var result = _.toString("Hello World") // result == "Hello World"
+     *
+     * @param {Object} object Value to check.
+     * @param {String} [replaceString] String to replace if object is not a string.
+     * @returns {String} If object is a valid string then the function returns it, otherwise it returns the replaceString or defaults to returning a empty/zero length string ("").
      */
-    function ensureString(object, replaceString) {
+    function toString(object, replaceString) {
         var output = (!isNullOrUndefined(replaceString) && _.isString(replaceString)) ? replaceString : "";
+
         if (!isNullOrUndefined(object) && !isEmptyOrWhitespace(object)) {
             if (_.isString(object)) {
                 if (isWhitespace(object)) {
@@ -201,32 +141,20 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return output;
     }
 
-    /*
-     Function: objectToQuery
-
-     Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit.
-     See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9
-
-     Usage:
-
-     (start code)
-
-     var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&b=2&c=3"
-     var result = _.objectToQuery(undefined) // result == ""
-
-     (end)
-
-     Parameters:
-
-     map - Name/value mapping object.
-
-     Returns:
-
-     A string representing a URL-encoded version of the map object.
-
+    /**
+     * Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit. See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9
+     *
+     * Examples
+     *
+     *     var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&b=2&c=3"
+     *     var result = _.objectToQuery(undefined) // result == ""
+     *
+     * @param {Object} map Name/value mapping object.
+     * @returns {String} A string representing a URL-encoded version of the map object.
      */
     function objectToQuery(map) {
         var enc = encodeURIComponent, pairs = [];
+
         for (var name in map) {
             var value = map[name];
             if (value != backstop[name]) {
@@ -244,31 +172,17 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return pairs.join("&"); // String
     }
 
-    /*
-     Function: queryToObject
-
-     Convert the query string of a URL to an object. "Borrowed" this function from Dojo Toolkit.
-     See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46
-
-     Usage:
-
-     (start code)
-
-     var result = _.queryToObject("a=1&b=2&c=3") // result ==  { a:1, b:2, c:3 }
-     var result = _.queryToObject("a=1&b=2&c=3&a=4") // result ==  { a: ['1', '4'], b:'2', c:'3' }
-     var result = _.queryToObject(undefined) // result == {}
-
-     (end)
-
-     Parameters:
-
-     str - String with URL.
-
-     Returns:
-
-     An object representing a de-serialized query section of a URL. Query keys with multiple values are
-     returned in an array.
-
+    /**
+     * Convert the query string of a URL to an object. "Borrowed" this function from Dojo Toolkit. See https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46
+     *
+     * Examples
+     *
+     *     var result = _.queryToObject("a=1&b=2&c=3") // result ==  { a:1, b:2, c:3 }
+     *     var result = _.queryToObject("a=1&b=2&c=3&a=4") // result ==  { a: ['1', '4'], b:'2', c:'3' }
+     *     var result = _.queryToObject(undefined) // result == {}
+     *
+     * @param {String} str The query string, usually what is returned by window.location.search.
+     * @returns {Object} An object representing a de-serialized query section of a URL. Query keys with multiple values are returned in an array.
      */
     function queryToObject(str) {
         var ret = {};
@@ -302,22 +216,15 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return ret; // Object
     }
 
-    /*
-     Function: getPrototypeOf
-
-     Function to safely get the prototype object of any object.
-
-     Parameters:
-
-     object - Object to get the prototype object from.
-
-     Returns:
-
-     The object's prototype object.
-
+    /**
+     * Function to safely get the prototype object of any object.
+     *
+     * @param {Object} object Object to get the prototype object from.
+     * @returns {Object} The object's prototype object.
      */
     function getPrototypeOf(object) {
         var output;
+
         if (typeof Object.getPrototypeOf !== "function") {
             if (typeof object.__proto__ === "object") {
                 output = object.__proto__;
@@ -332,12 +239,15 @@ define(['underscore.module', 'underscore.string'], function (_, _string) {
         return output;
     }
 
-    // Make the module methods "publicly" available.
+    /*!
+     * Make the module methods "publicly" available.
+     *
+     */
     module.isNullOrUndefined = isNullOrUndefined;
     module.isWhitespace = isWhitespace;
     module.isEmptyOrWhitespace = isEmptyOrWhitespace;
     module.hasEmptyOrWhitespaceValues = hasEmptyOrWhitespaceValues;
-    module.ensureString = ensureString;
+    module.ensureString = toString;
     module.objectToQuery = objectToQuery;
     module.queryToObject = queryToObject;
     module.getPrototypeOf = getPrototypeOf;

@@ -18,11 +18,103 @@ Check out the _*.spec.js_ files under the _/test/specs/_ folder to see different
 
 ## Documentation
 
- Documentation is available [here](http://prototypef.github.com/underscore-extensions-module/docs/) or, alternatively you can generate the documentation HTML pages by running:
 
-    NaturalDocs -i . -o HTML docs -p docs\.nd -xi docs -xi vendor -xi test -r
+### isNullOrUndefined
+<p>Check if the value passed is null or undefined.</p>
 
-Code documentation is powered by [NaturalDocs](http://www.naturaldocs.org/)
+<p>Examples</p>
+
+<pre><code>var result = _.isNullOrUndefined(null) // result == true
+var result = _.isNullOrUndefined(undefined) // result == true
+var result = _.isNullOrUndefined(void 0) // result == true
+var result = _.isNullOrUndefined("") // result == false
+</code></pre>
+
+
+
+### isWhitespace
+<p>Checks if a string contains only whitespace character(s).</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.isWhitespace("") // result == false
+var result = _.isWhitespace("Hello World!") // result == false
+var result = _.isWhitespace("  ") // result == true
+</code></pre>
+
+
+
+### isEmptyOrWhitespace
+<p>Checks if an object or array is empty, or, if a string is empty or only contains whitespace characters.<br />Depends on isWhitespace.</p>
+
+<p>Example</p>
+
+<pre><code>var result = _.isEmptyOrWhitespace({}) // result == true
+var result = _.isEmptyOrWhitespace([]) // result == true
+var result = _.isEmptyOrWhitespace("") // result == true
+var result = _.isEmptyOrWhitespace(" ") // result == true
+</code></pre>
+
+
+
+### hasEmptyOrWhitespaceValues
+<p>Checks if any property/value of a non-empty object or array is empty or only contains whitespace characters.<br />Depends on isEmptyOrWhitespace</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.hasEmptyOrWhitespaceValues([1, "", 3]) // result == true
+var result = _.hasEmptyOrWhitespaceValues({ one:1, two:2, three:"   " }) // result == true
+</code></pre>
+
+
+
+### toString
+<p>Converts and/or ensures that regardless of the input, the output will always be a string.<br />Depends on isNullOrUndefined, isWhitespace and isEmptyOrWhitespace.</p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.toString(null) // result == ""
+var result = _.toString(undefined) // result == ""
+var result = _.toString(undefined, "fallback!") // result == "fallback!"
+var result = _.toString(123) // result == "123"
+var result = _.toString("Hello World") // result == "Hello World"
+</code></pre>
+
+
+
+### objectToQuery
+<p>Convert an object to a URL query string. "Borrowed" this function from Dojo Toolkit. See <a href='https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9'>https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L9</a></p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.objectToQuery({ a:1, b:2, c:3 }) // result == "a=1&amp;b=2&amp;c=3"
+var result = _.objectToQuery(undefined) // result == ""
+</code></pre>
+
+
+
+### queryToObject
+<p>Convert the query string of a URL to an object. "Borrowed" this function from Dojo Toolkit. See <a href='https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46'>https://github.com/dojo/dojo/blob/9a4f36bab3c49ae405aa6d4e268e4729ca0c6e8e/io-query.js#L46</a></p>
+
+<p>Examples</p>
+
+<pre><code>var result = _.queryToObject("a=1&amp;b=2&amp;c=3") // result ==  { a:1, b:2, c:3 }
+var result = _.queryToObject("a=1&amp;b=2&amp;c=3&amp;a=4") // result ==  { a: ['1', '4'], b:'2', c:'3' }
+var result = _.queryToObject(undefined) // result == {}
+</code></pre>
+
+
+
+### getPrototypeOf
+<p>Function to safely get the prototype object of any object.</p>
+
+
+
+
+
+## Change Log
+
+Nothing to see here yet. Move along.
 
 ## License
 

@@ -114,7 +114,9 @@ var result = _.queryToObject(undefined) // result == {}
 
 ## Change Log
 
-Nothing to see here yet. Move along.
+__v1.0__
+
+* Initial release
 
 ## License
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The goal of this project is to develop a comprehensive, well documented and unit tested set of JavaScript helper functions that can be safely mixed in to [Underscore.js](http://underscorejs.org/) and packaged into an AMD module. Unit testing is powered by the [Jasmine BDD](http://pivotal.github.com/jasmine/) framework and uses the [RequireJS](http://requirejs.org/) AMD module format.
+The goal of this project is to develop a comprehensive, well documented and unit tested set of JavaScript helper functions that can be safely mixed in to [Underscore.js](http://underscorejs.org/) and packaged into an AMD module. Unit testing is powered by the [Jasmine BDD](https://jasmine.github.io/) framework and uses the [RequireJS](http://requirejs.org/) AMD module format.
 
 At the very least I hope this project serves as a solid template that can be forked, ripped apart and reconfigured to use in any way necessary.
 
